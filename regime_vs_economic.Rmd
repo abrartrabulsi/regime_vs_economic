@@ -90,7 +90,7 @@ mymap3 <- data %>%
 
 # model displaying the relationship between GDP per capita and PolityV2 score by year with population taken into account
 
-data %>%
+mymap4 <- data %>%
   filter(country == "Korea South" | country == "Singapore" | country == "Taiwan") %>%
   filter(year > 1960) %>%
   ggplot(aes(x = polity2, y = gdpercap, color = country)) + 
@@ -108,9 +108,10 @@ data %>%
 
 
 ```{r Writing In My Graphics}
-write_rds(mymap1, "shiny/mymap1.rds")
-write_rds(mymap2, "shiny/mymap2.rds")
-write_rds(mymap3, "shiny/mymap3.rds")
+write_rds(mymap1, "regime_vs_economic_shiny/mymap1.rds")
+write_rds(mymap2, "regime_vs_economic_shiny/mymap2.rds")
+write_rds(mymap3, "regime_vs_economic_shiny/mymap3.rds")
+write_rds(mymap4, "regime_vs_economic_shiny/mymap4.rds")
 ```
 
 
