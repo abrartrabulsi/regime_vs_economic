@@ -1,0 +1,116 @@
+---
+title: "demoday"
+author: "Abrar Trabulsi"
+date: "11/28/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(haven)
+library(readxl)
+library(forcats)
+library(gganimate)
+library(naniar)
+library(readr)
+```
+```{r Setting up my data}
+
+# reading in my data where "mydata" is economic data from the Penn World Tables and my2data is data measuring democratic nature of countries from Polity V
+
+mydata <- read_dta("/Users/abrartrabulsi/Downloads/pwt91.dta")
+my2data <- read_xls("/Users/abrartrabulsi/Downloads/p4v2018.xls")
+
+mydata[mydata == -88] <- NA
+
+# this line of code replaces -88s with NAs which is the appropriate notation in R. -88 is registered as NA in other programs like Stata
+
+
+# now we're making our Korea names the same so this merge works and I can actually run graphics and analysis on Korea. AND need to chane -88 values to NA so R doesn't miscalculate during regression.
+
+newmydata <- mydata %>%
+  mutate(country = fct_recode(country, "Korea South" = "Republic of Korea")) 
+  
+# merging my data. Use all = TRUE if you want to retain ALL columns from BOTH data sets
+
+prepdata <- merge(newmydata, my2data, all = TRUE)
+
+# dropping unnecessary variables (to be updated as I create my models)
+
+newdata <- subset(prepdata, select = -c(cyear,ccode,scode))
+
+# making a per capita GDP variable for my data
+
+data <- newdata %>%
+  mutate(gdpercap = rgdpna/pop)
+```
+
+```{r My Graphs}
+
+# first I will map the Real GDP growth of the US, Singapore, and Korea from 1960-2018
+  
+mymap1 <- data %>%
+  filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
+  filter(year > 1960) %>%
+  ggplot(aes(x = year, y = rgdpna, color = country)) + geom_point() +
+  transition_time(year) +
+  theme(legend.position = "none") +
+  scale_y_log10() +
+  labs(title = "Real GDP of the US, Singapore, and South Korea from 1960-2018", x = "Year", y = "Real GDP")
+
+# next I will do the same but with regards to population
+
+mymap2 <- data %>%
+  filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
+  filter(year > 1960) %>%
+  ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + geom_point() +
+  transition_time(year) +
+  theme(legend.position = "none", plot.title = element_text(size = 9)) +
+  scale_y_log10() +
+  labs(title = "Real GDP vs Population for the US, Singapore, and South Korea from 1960-2018", x = "Population", y = "Real GDP")
+
+```
+```{r My Models}
+
+# model displaying the relationship between Real GDP and Polity V score by year with population taken into account
+
+mymap3 <- data %>%
+  filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
+  filter(year > 1960) %>%
+  ggplot(aes(x = polity2, y = rgdpna, color = country)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  facet_wrap(~ country) +
+  theme(legend.position = "none", plot.title = element_text(size = 9)) +
+  scale_y_log10() +
+  labs(title = "Real GDP vs Polity V2 Score for the US, Singapore, and South Korea from 1960-2018", x = "Polity V2 Score", y = "Real GDP")
+
+# model displaying the relationship between GDP per capita and PolityV2 score by year with population taken into account
+
+data %>%
+  filter(country == "Korea South" | country == "Singapore" | country == "Taiwan") %>%
+  filter(year > 1960) %>%
+  ggplot(aes(x = polity2, y = gdpercap, color = country)) + 
+  geom_point() +
+  annotate("rect", xmin = -10, xmax = 10, ymin = 1000, ymax = 4000, alpha = .1) +
+  geom_hline(yintercept = 4000) +
+  geom_hline(yintercept = 1000) +
+  geom_hline(yintercept = 6000, color = "blue") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+  facet_wrap(~ country) +
+  theme(legend.position = "none", plot.title = element_text(size = 9)) +
+  scale_y_log10() +
+  labs(title = "GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018", x = "Polity V2 Score", y = "Per Capita GDP")
+```
+
+
+```{r Writing In My Graphics}
+write_rds(mymap1, "shiny/mymap1.rds")
+write_rds(mymap2, "shiny/mymap2.rds")
+write_rds(mymap3, "shiny/mymap3.rds")
+```
+
+
