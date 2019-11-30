@@ -59,7 +59,7 @@ mymap1 <- data %>%
   transition_time(year) +
   theme(legend.position = "none") +
   scale_y_log10() +
-  labs(title = "Real GDP of the US, Singapore, and South Korea from 1960-2018", x = "Year", y = "Real GDP")
+  labs(title = "", x = "Year", y = "Real GDP")
 
 # next I will do the same but with regards to population
 
@@ -68,9 +68,9 @@ mymap2 <- data %>%
   filter(year > 1960) %>%
   ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + geom_point() +
   transition_time(year) +
-  theme(legend.position = "none", plot.title = element_text(size = 9)) +
+  theme(legend.position = "none") +
   scale_y_log10() +
-  labs(title = "Real GDP vs Population for the US, Singapore, and South Korea from 1960-2018", x = "Population", y = "Real GDP")
+  labs(title = "", x = "Population", y = "Real GDP")
 
 ```
 ```{r My Models}
@@ -86,7 +86,7 @@ mymap3 <- data %>%
   facet_wrap(~ country) +
   theme(legend.position = "none", plot.title = element_text(size = 9)) +
   scale_y_log10() +
-  labs(title = "Real GDP vs Polity V2 Score for the US, Singapore, and South Korea from 1960-2018", x = "Polity V2 Score", y = "Real GDP")
+  labs(title = "", x = "Polity V2 Score", y = "Real GDP")
 
 # model displaying the relationship between GDP per capita and PolityV2 score by year with population taken into account
 
@@ -103,7 +103,7 @@ mymap4 <- data %>%
   facet_wrap(~ country) +
   theme(legend.position = "none", plot.title = element_text(size = 9)) +
   scale_y_log10() +
-  labs(title = "GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018", x = "Polity V2 Score", y = "Per Capita GDP")
+  labs(title = "", x = "Polity V2 Score", y = "Per Capita GDP")
 ```
 
 
