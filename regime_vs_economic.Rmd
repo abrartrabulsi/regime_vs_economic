@@ -57,7 +57,7 @@ mymap1 <- data %>%
   filter(year > 1960) %>%
   ggplot(aes(x = year, y = rgdpna, color = country)) + 
   geom_line() +
-  transition_time(year) +
+  transition_reveal(year) +
   theme(legend.position = "none") +
   scale_y_log10() +
   labs(title = "", x = "Year", y = "Real GDP")
@@ -68,8 +68,8 @@ mymap2 <- data %>%
   filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
   filter(year > 1960) %>%
   ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + 
-  geom_line() +
-  transition_time(year) +
+  geom_point() +
+  transition_reveal(year) +
   theme(legend.position = "none") +
   scale_y_log10() +
   labs(title = "", x = "Population", y = "Real GDP")

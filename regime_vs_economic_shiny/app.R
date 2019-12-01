@@ -170,6 +170,11 @@ server <- function(input, output, server) {
         explocive economic growth the country had been and would continue to experience. South Korea and Taiwan on the other hand,
         initially had much lower GDP per capitas, and were well on the way to democratization before passing the threshold."
     })
+    
+    output$home <- renderText({
+        
+        
+    })
 }
 # Run the application 
 shinyApp(ui = ui, server = server)
