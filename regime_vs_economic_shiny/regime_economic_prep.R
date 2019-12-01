@@ -6,6 +6,7 @@ library(fs)
 library(gganimate)
 library(readr)
 library(caTools)
+library(ggplot2)
 
 # making a file for my graphics in the shiny folder
 
@@ -23,3 +24,4 @@ anim_save("regime_vs_economic_shiny/mymap2.gif", mymap2)
 
 ggsave("mymap3.png", plot = mymap3)
 ggsave("mymap4.png", plot = mymap4)
+

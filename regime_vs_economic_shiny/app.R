@@ -34,7 +34,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     
                                     imageOutput("map2")))),
            
-                       tabPanel("Advances Graohs and Models",
+                       tabPanel("Advanced Graphs and Models",
                                 
                                 tabsetPanel(
                                     
@@ -42,17 +42,53 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                              
                                              h3("Regime vs. GDP for the US, South Korea, and Singapore from 1960-2018"),
                                              
-                                    imageOutput("map3")),
+                                    imageOutput("map3"),
+                                    
+                                    br(),
+                                    
+                                    br(),
+                                    
+                                    br(),
+                                    
+                                    br(),
+                                    
+                                        h2("Interpretation"),
+                                    
+                                            textOutput("texta")),
+                                    
                                     
                                     tabPanel("Regime and GDP Per Capita",
                                              
                                              h3("GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018"),
                                              
-                                    imageOutput("map4")))),
+                                    imageOutput("map4"),
+                                    
+                                    br(),
+                                    
+                                    br(),
+                                    
+                                    br(),
+                                    
+                                    br(),
+                                    
+                                        h2("Interpretation"),
+                                    
+                                            textOutput("textb")
+                                    ))),
                                 
                        tabPanel("About",
+                                
+                                h3("The Data"),
                               
-                                    textOutput("about")
+                                    textOutput("about"),
+                                
+                                h5("Both data sets, as well as the user manuals, are available on the respective websites of both organizations", a("here", href="https://www.rug.nl/ggdc/productivity/pwt/"), "and", a("here", href="http://www.systemicpeace.org/inscrdata.html")),
+                                
+                                h3("About Me!"),
+                                
+                                    textOutput("me"), 
+                                
+                                h5("To contact me, my email is abrartrabulsi@college.harvard.edu and my linked in is", a("this", href = "linkedin.com/in/abrar-trabulsi"))
                                 )
 ))
 
@@ -104,9 +140,35 @@ server <- function(input, output, server) {
     
     output$about <- renderText({
         
-        "Using data from the Penn World Tables as well as Polity V, I am looking at the relationship between regime type and economic development by evaluating data from the United States, Singapore, and South Korea
-        I am looking at these particular cases because all three are hghly developed countries, and each displays economic growth from all aspects of the regome spectrum (democratic, autocratic, and autocratic turned democratic). 
-        I hope to display this in my final project with further graphics that give more detailed information about this relationship."
+        "These graphs and analyses are based off of the Penn World Tables 9.1 as well as Polity IV's
+        annual time series data set."
+    })
+    
+    output$me <- renderText({
+        
+        "My name is Abrar Trabulsi and I'm a Harvard sophomore studying government and data science.
+        I'm extremely passionate about domestic politics, international relations, and much more (that's unrelated to government entirely!).
+        I hope to continue making, and releasing work related to data science during my undergraduate years and beyond."
+    })
+    
+    output$texta <- renderText({
+        
+        "South Korea experienced consistent and explosive economic growth as a stringent autocracy for several decades before beginning the democratization process in 1988. 
+        South Korea continued experiencing substantive economic growth except for in 1997, during the Asian financial crisis, which happened to occur
+        during Korea's first civilian elected government in 3 decades. Singapore, which has consistently been a one-party autocracy for several decades,
+        also benefitted from explosive economic growth between 1960 and 2018. The United States has experienced modest economic growth, and relatively
+        consistent democratic governance. "
+    })
+    
+    output$textb <- renderText({
+        
+        "This graph shows that for both South Korea and Taiwan, as GDP per capita increased, they became more democratic,
+        and democratized a little after the per capita range theorized by Acemoglu and Robinson as the most dangerous for autocracies.
+        Singapore had a per capita much higher than that of South Korea and Taiwan in 1960, a little under the $6,000 theorized by Acemoglu and Robinson
+        as a point at which it would be incredibly difficult for autocracies to democratize. This suggests that for Singapore, the potential
+        destabilization that comes with any regime change was too high of a cost to risk their already, relatively high GDP per capita, and the
+        explocive economic growth the country had been and would continue to experience. South Korea and Taiwan on the other hand,
+        initially had much lower GDP per capitas, and were well on the way to democratization before passing the threshold."
     })
 }
 # Run the application 

@@ -55,7 +55,8 @@ data <- newdata %>%
 mymap1 <- data %>%
   filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
   filter(year > 1960) %>%
-  ggplot(aes(x = year, y = rgdpna, color = country)) + geom_point() +
+  ggplot(aes(x = year, y = rgdpna, color = country)) + 
+  geom_line() +
   transition_time(year) +
   theme(legend.position = "none") +
   scale_y_log10() +
@@ -66,7 +67,8 @@ mymap1 <- data %>%
 mymap2 <- data %>%
   filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
   filter(year > 1960) %>%
-  ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + geom_point() +
+  ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + 
+  geom_line() +
   transition_time(year) +
   theme(legend.position = "none") +
   scale_y_log10() +
@@ -84,7 +86,7 @@ mymap3 <- data %>%
   geom_point() +
   geom_smooth(method = "lm", se = F) +
   facet_wrap(~ country) +
-  theme(legend.position = "none", plot.title = element_text(size = 9)) +
+  theme(legend.position = "none") +
   scale_y_log10() +
   labs(title = "", x = "Polity V2 Score", y = "Real GDP")
 
@@ -96,12 +98,12 @@ mymap4 <- data %>%
   ggplot(aes(x = polity2, y = gdpercap, color = country)) + 
   geom_point() +
   annotate("rect", xmin = -10, xmax = 10, ymin = 1000, ymax = 4000, alpha = .1) +
-  geom_hline(yintercept = 4000, linetype = "dotted") +
-  geom_hline(yintercept = 1000, linetype = "dotted") +
-  geom_hline(yintercept = 6000, color = "blue") +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+  geom_hline(yintercept = 4000, linetype = "dotted", show.legend = TRUE) +
+  geom_hline(yintercept = 1000, linetype = "dotted", show.legend = TRUE) +
+  geom_hline(yintercept = 6000, color = "blue", show.legend = TRUE) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red", show.legend = TRUE) +
   facet_wrap(~ country) +
-  theme(legend.position = "none", plot.title = element_text(size = 9)) +
+  theme(legend.position = "none") +
   scale_y_log10() +
   labs(title = "", x = "Polity V2 Score", y = "Per Capita GDP")
 ```
@@ -116,5 +118,3 @@ write_rds(mymap4, "regime_vs_economic_shiny/mymap4.rds")
 # ask alice how necessary this actually is, test if not writing and reading breaks your shiny!
 
 ```
-
-
