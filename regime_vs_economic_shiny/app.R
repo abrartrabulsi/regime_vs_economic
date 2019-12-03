@@ -27,6 +27,8 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
            
                        tabPanel("Preliminary Graphs",
                                 
+                                # tabsetPanel is how you make tabs within your tabs. This is extremely useful!
+                                
                                 tabsetPanel(
                                     
                                     tabPanel("GDP through the Years",
@@ -88,6 +90,8 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                 h3("The Data"),
                               
                                     textOutput("about"),
+                                
+                                # a() is how you insert a hyperlink into shiny HTML commands, also really useful!
                                 
                                 h5("Both data sets, as well as the user manuals, are available on the respective websites of both organizations", a("here", href="https://www.rug.nl/ggdc/productivity/pwt/"), "and", a("here", href="http://www.systemicpeace.org/inscrdata.html")),
                                 
