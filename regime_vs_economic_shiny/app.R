@@ -18,6 +18,13 @@ ui <- fluidPage(theme = shinytheme("flatly"),
 br(),
 
 navbarPage("Outlining the Relationship between Regime and Economic Development",
+           
+                       tabPanel("Home",
+                                
+                                h3("About this Project"),
+                                
+                                    textOutput("home")),
+           
                        tabPanel("Preliminary Graphs",
                                 
                                 tabsetPanel(
@@ -173,7 +180,24 @@ server <- function(input, output, server) {
     
     output$home <- renderText({
         
+        "This project was created with the aim to explore the relationship between regime type, and economic development through
+        the use of data and graphical representations. To draw this relationship, I use economic data from autocratic countries, democratic countries, and countries which
+        once were autocratic but are now democratic. I also draw from the theories of political scientists in the field, namely Daron Acemoglu's and James A. Robinson's ('Why Nations Fail: The Origins of Power, Prosperity, and Poverty'), to
+        frame my findings, specifically those that have to do with GDP per capita.
         
+        Acemoglu and Robinson both theorized that between $1000 and $4000 GDP per capita, autocratic regimes were most susceptible
+        to the forces of democratization. At $6000 GDP per capita however, a country is deemed safe from democratization. I outline these parameters in
+        my graph titled 'GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018' and briefly discuss how well the
+        data for the countries discussed supports their parameters.
+        
+        In this project I am using data from Singapore, South Korea, and Taiwan specifically, because they are remarkable
+        examples of economic growth under an autocratic, or formerly autocratic, regime. These countries have been studied extensively
+        by economists and political scientists, and I continue to be fascinated by their economic development from newly
+        decolonized countries, to global powerhouses. For more information on how South Korea, Taiwan, and Singapore acomplished their feats,
+        general historical information is readily available on open internet sources such as Wikipedia. More specific theories are available to, but
+        some with limited accessibility. One that I find particularly interesting, comprehensive, and engaging, is Robert Wade's 'Governing the Market: Economic Theory and the Role of Government in East Asian Development'.
+        
+        I hope you find the insights displayed and drawn here interesting!"
     })
 }
 # Run the application 
