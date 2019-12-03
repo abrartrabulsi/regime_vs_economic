@@ -114,7 +114,4 @@ write_rds(mymap1, "regime_vs_economic_shiny/mymap1.rds")
 write_rds(mymap2, "regime_vs_economic_shiny/mymap2.rds")
 write_rds(mymap3, "regime_vs_economic_shiny/mymap3.rds")
 write_rds(mymap4, "regime_vs_economic_shiny/mymap4.rds")
-
-# ask alice how necessary this actually is, test if not writing and reading breaks your shiny!
-
 ```
