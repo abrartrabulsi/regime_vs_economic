@@ -43,7 +43,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     
                                     imageOutput("map2")))),
            
-                       tabPanel("Advanced Graphs and Models",
+                       tabPanel("Asian Tigers Advanced Graphs",
                                 
                                 tabsetPanel(
                                     
@@ -84,6 +84,49 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     
                                             textOutput("textb")
                                     ))),
+           
+           tabPanel("Aggregate Advanced Graohs",
+                    
+                    tabsetPanel(
+                        
+                        tabPanel("Aggregate GDP and Regime Fixed Effects Regression",
+                                 
+                                 h3("Regime vs. GDP for all Countries and for all Years, Fixing for both Year and Country"),
+                                 
+                                 imageOutput("map5"),
+                                 
+                                 br(),
+                                 
+                                 br(),
+                                 
+                                 br(),
+                                 
+                                 br(),
+                                 
+                                 h2("Interpretation"),
+                                 
+                                 textOutput("")),
+                        
+                        
+                        tabPanel("Regime vs. GDP per capita for all Countries and for all Years, Fixing for both Year and Country",
+                                 
+                                 h3("GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018"),
+                                 
+                                 imageOutput("map6"),
+                                 
+                                 br(),
+                                 
+                                 br(),
+                                 
+                                 br(),
+                                 
+                                 br(),
+                                 
+                                 h2("Interpretation"),
+                                 
+                                 textOutput("")
+                                 
+                        ))),
                                 
                        tabPanel("About",
                                 
@@ -142,6 +185,28 @@ server <- function(input, output, server) {
         
         
         list(src = "mymap4.png",
+             contentType = "image",
+             width = 600,
+             height = 500)
+        
+        
+    }, deleteFile = FALSE)
+    
+    output$map5 <- renderImage({
+        
+        
+        list(src = "mymap5.png",
+             contentType = "image",
+             width = 600,
+             height = 500)
+        
+        
+    }, deleteFile = FALSE)
+    
+    output$map6 <- renderImage({
+        
+        
+        list(src = "mymap6.png",
              contentType = "image",
              width = 600,
              height = 500)

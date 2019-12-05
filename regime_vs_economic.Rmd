@@ -29,7 +29,7 @@ mydata[mydata == -88] <- NA
 # this line of code replaces -88s with NAs which is the appropriate notation in R. -88 is registered as NA in other programs like Stata
 
 
-# now we're making our Korea names the same so this merge works and I can actually run graphics and analysis on Korea. AND need to chane -88 values to NA so R doesn't miscalculate during regression.
+# now we're making our Korea names the same so this merge works and I can actually run graphics and analysis on Korea.
 
 newmydata <- mydata %>%
   mutate(country = fct_recode(country, "Korea South" = "Republic of Korea")) 
@@ -53,7 +53,7 @@ data <- newdata %>%
 # first I will map the Real GDP growth of the US, Singapore, and Korea from 1960-2018
   
 mymap1 <- data %>%
-  filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
+  filter(country == "United States" | country == "Korea South" | country == "Singapore" | country == "Brazil" | country == "Germany" | country == "Nigeria" | country == "Qatar") %>%
   filter(year > 1960) %>%
   ggplot(aes(x = year, y = rgdpna, color = country)) + 
   geom_line() +
@@ -115,6 +115,9 @@ write_rds(mymap3, "regime_vs_economic_shiny/mymap3.rds")
 write_rds(mymap4, "regime_vs_economic_shiny/mymap4.rds")
 ```
 ```{r Function to turn a regression output into a ggplot}
+
+# this is a function I found online which converts a regression output to a ggplot, it's extremely useful especially considering the fact that I don't know how to incorporate fixed effects into ggplot
+
 ggplotRegression <- function (fit) {
 
 require(ggplot2)
@@ -127,15 +130,20 @@ ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) 
                      " Slope =",signif(fit$coef[[2]], 5),
                      " P =",signif(summary(fit)$coef[2,4], 5)))
 }
-
 ```
 ```{r FE model for GDP}
+
+# as.factor(variable) fixes for certain variables. This means these variables won't interfere with the overall regression. This is useful because certain anomalies like random financial meltdowns, cultural differences between countries etc won't affect the overall regression
+
 m1 <- lm(rgdpna ~ polity2 + as.factor(country) + as.factor(year), data = data)
          summary(m1)
          
 mymap5 <- ggplotRegression(m1)
 ```
 ```{r FE model for GDP Per Capita}
+
+# I am using GDP percapita due to the more specific analysis you can conduct with it
+
 m2 <- lm(gdpercap ~ polity2 + as.factor(country) + as.factor(year), data = data)
          summary(m2)
          
