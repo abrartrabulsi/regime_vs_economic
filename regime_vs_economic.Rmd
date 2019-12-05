@@ -1,5 +1,5 @@
 ---
-title: "demoday"
+title: "Regime type and Economic Development"
 author: "Abrar Trabulsi"
 date: "11/28/2019"
 output: html_document
@@ -58,7 +58,6 @@ mymap1 <- data %>%
   ggplot(aes(x = year, y = rgdpna, color = country)) + 
   geom_line() +
   transition_reveal(year) +
-  theme(legend.position = "none") +
   scale_y_log10() +
   labs(title = "", x = "Year", y = "Real GDP")
 
@@ -70,7 +69,6 @@ mymap2 <- data %>%
   ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + 
   geom_point() +
   transition_reveal(year) +
-  theme(legend.position = "none") +
   scale_y_log10() +
   labs(title = "", x = "Population", y = "Real GDP")
 
@@ -103,15 +101,44 @@ mymap4 <- data %>%
   geom_hline(yintercept = 6000, color = "blue", show.legend = TRUE) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red", show.legend = TRUE) +
   facet_wrap(~ country) +
-  theme(legend.position = "none") +
+  theme(legend.position = "right") +
   scale_y_log10() +
   labs(title = "", x = "Polity V2 Score", y = "Per Capita GDP")
 ```
-
-
 ```{r Writing In My Graphics} 
+
+# writing in my graphics to the shiny app folder
+
 write_rds(mymap1, "regime_vs_economic_shiny/mymap1.rds")
 write_rds(mymap2, "regime_vs_economic_shiny/mymap2.rds")
 write_rds(mymap3, "regime_vs_economic_shiny/mymap3.rds")
 write_rds(mymap4, "regime_vs_economic_shiny/mymap4.rds")
 ```
+```{r Function to turn a regression output into a ggplot}
+ggplotRegression <- function (fit) {
+
+require(ggplot2)
+
+ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                     "Intercept =",signif(fit$coef[[1]],5 ),
+                     " Slope =",signif(fit$coef[[2]], 5),
+                     " P =",signif(summary(fit)$coef[2,4], 5)))
+}
+
+```
+```{r FE model for GDP}
+m1 <- lm(rgdpna ~ polity2 + as.factor(country) + as.factor(year), data = data)
+         summary(m1)
+         
+mymap5 <- ggplotRegression(m1)
+```
+```{r FE model for GDP Per Capita}
+m2 <- lm(gdpercap ~ polity2 + as.factor(country) + as.factor(year), data = data)
+         summary(m2)
+         
+mymap6 <- ggplotRegression(m2)
+```
+

@@ -24,4 +24,5 @@ anim_save("regime_vs_economic_shiny/mymap2.gif", mymap2)
 
 ggsave("mymap3.png", plot = mymap3)
 ggsave("mymap4.png", plot = mymap4)
-
+ggsave("mymap5.png", plot = mymap5)
+ggsave("mymap6.png", plot = mymap6)
