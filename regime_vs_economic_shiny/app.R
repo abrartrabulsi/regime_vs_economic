@@ -4,6 +4,7 @@
 
 library(shiny)
 library(shinythemes)
+library(plotly)
 
 # Think of this like a tumblr theme, really good way of making things look good right off the bat
 # without needing to code from the bottom up.
@@ -29,8 +30,18 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     tabPanel("GDP through the Years",
                                              
                                              h3("Real GDP of the US, Singapore, and South Korea from 1960-2018"),
+                                             
+                                    sidebarPanel(
+                                        
+                                        selectInput("country", "Country:", levels(data$country)),
+                                    ),
+                                    
+                                    mainPanel(
+                                        
+                                        plotlyOutput("GDPPlotly"),
+                                    ),
                                 
-                                    imageOutput("map1")),
+                                    #imageOutput("map1")),
                                     
                                     tabPanel("GDP and Population",
                                              
@@ -133,6 +144,10 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                 
                                 h5("Both data sets, as well as the user manuals, are available on the respective websites of both organizations", a("here", href="https://www.rug.nl/ggdc/productivity/pwt/"), "and", a("here", href="http://www.systemicpeace.org/inscrdata.html")),
                                 
+                                h3("Useful Information for Interpretting Plots"),
+                                
+                                h3("Interesting Musings About the Information Shown"),
+                                
                                 h3("About Me!"),
                                 
                                     textOutput("me"), 
@@ -226,9 +241,13 @@ server <- function(input, output, server) {
         
         "South Korea experienced consistent and explosive economic growth as a stringent autocracy for several decades before beginning the democratization process in 1988. 
         South Korea continued experiencing substantive economic growth except for in 1997, during the Asian financial crisis, which happened to occur
-        during Korea's first civilian elected government in 3 decades. Singapore, which has consistently been a one-party autocracy for several decades,
+        during Korea's first civilian elected government in 3 decades. Whether this factors into the occurence of the financial crisis is unclear, but it is possible since there is 
+        documented evidence of governmental events affecting economic performance. Singapore, which has consistently been a one-party autocracy for several decades,
         also benefitted from explosive economic growth between 1960 and 2018. The United States has experienced modest economic growth, and relatively
-        consistent democratic governance. "
+        consistent democratic governance. For South Korea and Singapore, it seems as though their vast economic development did have
+        something to do with the fact that they are/were autocracies, especially Singapore, which has maintained the same Polity score for
+        decades. Literature will support this, with experts citing certain features unique to autocracies such as state-led economic initiatives attributing to 
+        their growth. See the 'About' page for more."
     })
     
     output$textb <- renderText({
@@ -239,7 +258,7 @@ server <- function(input, output, server) {
         as a point at which it would be incredibly difficult for autocracies to democratize. This suggests that for Singapore, the potential
         destabilization that comes with any regime change was too high of a cost to risk their already, relatively high GDP per capita, and the
         explocive economic growth the country had been and would continue to experience. South Korea and Taiwan on the other hand,
-        initially had much lower GDP per capitas, and were well on the way to democratization before passing the threshold."
+        initially had much lower GDP per capitas, and were well on the way to democratization before surpassing the threshold."
     })
     
     output$textc <- renderText({
@@ -270,6 +289,19 @@ server <- function(input, output, server) {
         there to possibly be a casual relationship"
     })
     
+    output$GDPPlotly <- renderPlotly({
+        
+        ggplotly(data %>%
+                     filter(country == "United States" | country == "Korea South" | country == "Singapore" | country == "Brazil" | country == "Germany" | country == "Nigeria" | country == "Qatar") %>%
+                     filter(year > 1960) %>%
+                     ggplot(aes(x = year, y = rgdpna, color = country)) + 
+                     geom_line() +
+                     transition_reveal(year) +
+                     scale_y_log10() +
+                     labs(title = "", x = "Year", y = "Real GDP")
+                 
+                 )
+    })
 }
 # Run the application 
 shinyApp(ui = ui, server = server)

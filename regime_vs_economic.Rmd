@@ -47,7 +47,6 @@ newdata <- subset(prepdata, select = -c(cyear,ccode,scode))
 data <- newdata %>%
   mutate(gdpercap = rgdpna/pop)
 ```
-
 ```{r My Graphs}
 
 # first I will map the Real GDP growth of the US, Singapore, and Korea from 1960-2018
@@ -113,6 +112,8 @@ write_rds(mymap1, "regime_vs_economic_shiny/mymap1.rds")
 write_rds(mymap2, "regime_vs_economic_shiny/mymap2.rds")
 write_rds(mymap3, "regime_vs_economic_shiny/mymap3.rds")
 write_rds(mymap4, "regime_vs_economic_shiny/mymap4.rds")
+write_rds(mymap5, "regime_vs_economic_shiny/mymap5.rds")
+write_rds(mymap6, "regime_vs_economic_shiny/mymap6.rds")
 ```
 ```{r Function to turn a regression output into a ggplot}
 
@@ -148,5 +149,11 @@ m2 <- lm(gdpercap ~ polity2 + as.factor(country) + as.factor(year), data = data)
          summary(m2)
          
 mymap6 <- ggplotRegression(m2) + labs(x = "Polity V2 Score", y = "GDP Per Capita")
+```
+```{r Writing in my data into the shiny app folder}
+
+# this is necessary to be able to make an interactive plot with Plotly
+
+write_rds(data, "regime_vs_economic_shiny/data.rds")
 ```
 

@@ -26,3 +26,6 @@ ggsave("mymap3.png", plot = mymap3)
 ggsave("mymap4.png", plot = mymap4)
 ggsave("mymap5.png", plot = mymap5)
 ggsave("mymap6.png", plot = mymap6)
+
+
+read_rds("data.rds")
