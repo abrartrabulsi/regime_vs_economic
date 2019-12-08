@@ -19,11 +19,6 @@ br(),
 
 navbarPage("Outlining the Relationship between Regime and Economic Development",
            
-                       tabPanel("Home",
-                                
-                                h3("About this Project"),
-                                
-                                    textOutput("home")),
            
                        tabPanel("Preliminary Graphs",
                                 
@@ -91,7 +86,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                         
                         tabPanel("Aggregate GDP and Regime Fixed Effects Regression",
                                  
-                                 h3("Regime vs. GDP for all Countries and for all Years, Fixing for both Year and Country"),
+                                 h3("Regime vs. GDP, Fixing for both Year and Country"),
                                  
                                  imageOutput("map5"),
                                  
@@ -105,12 +100,12 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                  
                                  h2("Interpretation"),
                                  
-                                 textOutput("")),
+                                 textOutput("textc")),
                         
                         
-                        tabPanel("Regime vs. GDP per capita for all Countries and for all Years, Fixing for both Year and Country",
+                        tabPanel("Aggregate GDP per capita and Regime Fixed Effects Regression",
                                  
-                                 h3("GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018"),
+                                 h3("Regime vs. GDP per capita, Fixing for both Year and Country"),
                                  
                                  imageOutput("map6"),
                                  
@@ -124,7 +119,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                  
                                  h2("Interpretation"),
                                  
-                                 textOutput("")
+                                 textOutput("textd")
                                  
                         ))),
                                 
@@ -247,27 +242,34 @@ server <- function(input, output, server) {
         initially had much lower GDP per capitas, and were well on the way to democratization before passing the threshold."
     })
     
-    output$home <- renderText({
+    output$textc <- renderText({
         
-        "This project was created with the aim to explore the relationship between regime type, and economic development through
-        the use of data and graphical representations. To draw this relationship, I use economic data from autocratic countries, democratic countries, and countries which
-        once were autocratic but are now democratic. I also draw from the theories of political scientists in the field, namely Daron Acemoglu's and James A. Robinson's ('Why Nations Fail: The Origins of Power, Prosperity, and Poverty'), to
-        frame my findings, specifically those that have to do with GDP per capita.
-        
-        Acemoglu and Robinson both theorized that between $1000 and $4000 GDP per capita, autocratic regimes were most susceptible
-        to the forces of democratization. At $6000 GDP per capita however, a country is deemed safe from democratization. I outline these parameters in
-        my graph titled 'GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018' and briefly discuss how well the
-        data for the countries discussed supports their parameters.
-        
-        In this project I am using data from Singapore, South Korea, and Taiwan specifically, because they are remarkable
-        examples of economic growth under an autocratic, or formerly autocratic, regime. These countries have been studied extensively
-        by economists and political scientists, and I continue to be fascinated by their economic development from newly
-        decolonized countries, to global powerhouses. For more information on how South Korea, Taiwan, and Singapore acomplished their feats,
-        general historical information is readily available on open internet sources such as Wikipedia. More specific theories are available to, but
-        some with limited accessibility. One that I find particularly interesting, comprehensive, and engaging, is Robert Wade's 'Governing the Market: Economic Theory and the Role of Government in East Asian Development'.
-        
-        I hope you find the insights displayed and drawn here interesting!"
+        "This plot is a fixed effects graph mapping the overall relationship between regime type and GDP controlling for year
+        and country. This is so particular fiscal anomalies, such as the 1997 Asian financial crisis, as well as cultural differences 
+        in a particular country do not affect the overall mapping of a relationship. While a linear model is not the most useful for this data dur to the
+        adjusted R^2 showing that the model is not very good, the plot itself is fascinating. As shown, while there
+        are more democratic countries with high GDPs, there is also a fairly high amount of autocratic countries with
+        large GDPs, and interestingly enough, they all have the same Polity score. This could suggest that regime type has very little to do
+        causally with a country's GDP. Furthermore, if there's anything the small adjusted R^2 can say, it's that there is little to no linear relationship
+        between these two variables. To test signifigance in the difference in sheer quantity between high GDP grossing democratic and
+        autocratic countries a hypothesis test could be conducted and evaluated at an alpha of .05."
     })
+    
+    output$textd <- renderText({
+        
+        "This plot is also a fixed effects graph like the first except that it is mapping the relationship between GDP per capita
+        and regime. Also much like the first, the adjusted R^2 is very low meaning that a linear model is not the best fit for these data. 
+        In this plot, we can see that a higher quantity of autocratic countries have high GDP per capitas than democratic countries, however, with seemingly 
+        high variability within each Polity score. This is interesting, because most wouldn't automatically think of
+        autocratic countries as more wealthy per capita than their democratic counterparts on first thought. Especially those of us
+        raised and educated in the United States, the narrative of prosperity coinciding closely with democracy is one that
+        comes automatically when asked. However, this plot seems to place doubt in that theory. To better understand if there
+        is a causal effect of some sort, a causal experiment would have to be conducted somehow, most likely through
+        simulated data. Or more simply as in the first plot, a hypothesis test for significant difference can be conducted
+        to see if the difference in sheer quantity of high grossing autocratic countries per capita is significant enough for
+        there to possibly be a casual relationship"
+    })
+    
 }
 # Run the application 
 shinyApp(ui = ui, server = server)
