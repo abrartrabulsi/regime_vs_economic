@@ -5,10 +5,12 @@
 library(shiny)
 library(shinythemes)
 library(plotly)
+library(readr)
 
 # Think of this like a tumblr theme, really good way of making things look good right off the bat
 # without needing to code from the bottom up.
 
+data <- read_rds("data.rds")
 
 ui <- fluidPage(theme = shinytheme("flatly"),
 
@@ -31,17 +33,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                              
                                              h3("Real GDP of the US, Singapore, and South Korea from 1960-2018"),
                                              
-                                    sidebarPanel(
-                                        
-                                        selectInput("country", "Country:", levels(data$country)),
-                                    ),
-                                    
-                                    mainPanel(
-                                        
-                                        plotlyOutput("GDPPlotly"),
-                                    ),
-                                
-                                    #imageOutput("map1")),
+                                    imageOutput("map1")),
                                     
                                     tabPanel("GDP and Population",
                                              
@@ -85,6 +77,10 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     br(),
                                     
                                     br(),
+                                    
+                                        h2("Useful Information for Interpretting Plots"),
+                                    
+                                            textOutput("useful"),
                                     
                                         h2("Interpretation"),
                                     
@@ -143,16 +139,18 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                 # a() is how you insert a hyperlink into shiny HTML commands, also really useful!
                                 
                                 h5("Both data sets, as well as the user manuals, are available on the respective websites of both organizations", a("here", href="https://www.rug.nl/ggdc/productivity/pwt/"), "and", a("here", href="http://www.systemicpeace.org/inscrdata.html")),
-                                
-                                h3("Useful Information for Interpretting Plots"),
-                                
-                                h3("Interesting Musings About the Information Shown"),
+                                h5("You can find all the code for this project at", a("this", href = "https://github.com/abrartrabulsi/regime_vs_economic"), "GitHub Repo. My GitHub profile is here too!"),
                                 
                                 h3("About Me!"),
                                 
                                     textOutput("me"), 
                                 
-                                h5("To contact me, my email is abrartrabulsi@college.harvard.edu and my linked in is", a("this", href = "linkedin.com/in/abrar-trabulsi"))
+                                h5("To contact me, my email is abrartrabulsi@college.harvard.edu and my linked in is", a("this", href = "linkedin.com/in/abrar-trabulsi")),
+                                
+                                h3("Interesting Musings About the Information Shown"),
+                                
+                                textOutput("interesting")
+                                
                                 )
 ))
 
@@ -301,6 +299,32 @@ server <- function(input, output, server) {
                      labs(title = "", x = "Year", y = "Real GDP")
                  
                  )
+    })
+    
+    output$useful <- renderText({
+        
+        "I fully intended to make a key explaining this, but R wouldn't make a key of the lines on this
+        graph with the typical commands, so here we are. The two black lines are the GDP per capita range in which
+        an autocratic state is deemed the most vulnerable to the forces of democratization. The blue line is the GDP per capita at which
+        once an autocratic state has surpassed it, is deemed safe from the forces of democratization. The red line shows the divide between 
+        autocracies and democracies in the Polity V range."
+    })
+    
+    output$interesting <- renderText({
+        
+        "I'm primarily going to talk about the inspiration for this project, which is maininly the story of the East Asian Tigers.
+        These are countries which had just come our of colonialization and brutal war, and were thwarted onto the world stage as nation states during a time
+        when the Cold War was just beginning. They were able to transform themselves from some of the poorest countries in the world,
+        to same of the wealthiest in the span od 3 decades. This was absoltely unprescedented, and went against everything political scientists and
+        economists had thought was true for so long. When I learned about these coutries in a GOV 20, a comparative government class I took my freshman year,
+        I was fascinated. What it seemed like to me was that these countries were able to develop so rapidly in part because they were autocracies,
+        because their regimes could implement aggressive state led economic policy like choosing which industries would be fostered and catered to
+        with tax incentives, regulating foreign investment so that industries in their infamcy wouldn't be overtaken by their much more powerful foreign 
+        counterparts and more. This led to many questions about the relationship between regime and economic development. This project does not set out to
+        definitely answer these questions, because after all that would take much more extensive scholarship, experimentation, and time to do so, but rather
+        visually outline current data about what this relationship could look like. In the long run, I am hoping to bring this together with more
+        qualitative information and analysis, because after all, it's only when sileoed neither quantitative or qualitative analysis
+        is sufficient to outline most phenomenon."
     })
 }
 # Run the application 

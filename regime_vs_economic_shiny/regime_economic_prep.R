@@ -7,6 +7,7 @@ library(gganimate)
 library(readr)
 library(caTools)
 library(ggplot2)
+library(readr)
 
 # making a file for my graphics in the shiny folder
 
@@ -28,4 +29,4 @@ ggsave("mymap5.png", plot = mymap5)
 ggsave("mymap6.png", plot = mymap6)
 
 
-read_rds("data.rds")
+data <- read_rds("regime_vs_economic_shiny/data.rds")
