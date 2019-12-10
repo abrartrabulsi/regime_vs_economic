@@ -33,6 +33,9 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     tabPanel("GDP through the Years",
                                              
                                              h3("Real GDP for all Countries from 1960-2018"),
+                                             
+                                        # sidebars are cool but also extremely fickle, it's important to pay very close attention to,
+                                        # and to keep track of, paraentheses 
                                         
                                         sidebarPanel(
                                             
@@ -173,27 +176,6 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
 
 # Define server logic required to draw a histogram
 server <- function(input, output, server) {
-    output$map1 <- renderImage({
-        
-        
-        list(src = "mymap1.gif",
-             contentType = "image/gif",
-             width = 600,
-             height = 500)
-        
-        
-    }, deleteFile = FALSE)
-    
-    output$map2 <- renderImage({
-        
-        
-        list(src = "mymap2.gif",
-             contentType = "image/gif",
-             width = 600,
-             height = 500)
-        
-        
-    }, deleteFile = FALSE)
     
     output$map3 <- renderImage({
         
@@ -351,6 +333,10 @@ server <- function(input, output, server) {
         
         ggplotly(data %>%
             filter(country == input$countrypercap) %>%
+            
+            # when you're making new plotly's, the input variable name in your filter
+            # as well as the ui must be different from those of other plotlys'
+                
             filter(year > 1960) %>%
             ggplot(aes(x = year, y = gdpercap)) + 
             geom_line() +

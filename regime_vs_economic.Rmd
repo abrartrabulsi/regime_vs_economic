@@ -51,25 +51,24 @@ data <- newdata %>%
 
 # first I will map the Real GDP growth of the US, Singapore, and Korea from 1960-2018
   
-mymap1 <- data %>%
-  filter(country == "United States" | country == "Korea South" | country == "Singapore" | country == "Brazil" | country == "Germany" | country == "Nigeria" | country == "Qatar") %>%
+data %>%
   filter(year > 1960) %>%
-  ggplot(aes(x = year, y = rgdpna, color = country)) + 
+  ggplot(aes(x = year, y = rgdpna)) + 
   geom_line() +
-  transition_reveal(year) +
   scale_y_log10() +
   labs(title = "", x = "Year", y = "Real GDP")
 
 # next I will do the same but with regards to population
 
-mymap2 <- data %>%
-  filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
+data %>%
   filter(year > 1960) %>%
-  ggplot(aes(x = pop, y = rgdpna, color = country, size = pop)) + 
+  ggplot(aes(x = year, y = gdpercap)) + 
   geom_point() +
   transition_reveal(year) +
   scale_y_log10() +
-  labs(title = "", x = "Population", y = "Real GDP")
+  labs(title = "", x = "Year", y = "GDP Per Cap")
+
+# I am doing this code in the RMD FIRST because it's easier to continuously work with, and change as needed before copying and pasting into the app.R file for plotly use.
 
 ```
 ```{r My Models}

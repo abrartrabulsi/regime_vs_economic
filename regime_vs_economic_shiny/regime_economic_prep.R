@@ -9,17 +9,14 @@ library(caTools)
 library(ggplot2)
 library(readr)
 
-# making a file for my graphics in the shiny folder
+# reading i my graphics as RDS files
 
 mymap1 <- read_rds("regime_vs_economic_shiny/mymap1.rds")
 mymap2 <- read_rds("regime_vs_economic_shiny/mymap2.rds")
 mymap3 <- read_rds("regime_vs_economic_shiny/mymap3.rds")
 mymap4 <- read_rds("regime_vs_economic_shiny/mymap4.rds")
-
-# changing my animated plots into GIFs
-
-anim_save("regime_vs_economic_shiny/mymap1.gif", mymap1)
-anim_save("regime_vs_economic_shiny/mymap2.gif", mymap2)
+mymap5 <- read_rds("regime_vs_economic_shiny/mymap5.rds")
+mymap6 <- read_rds("regime_vs_economic_shiny/mymap6.rds")
 
 # saving my non-animated ggplots as images! just tell it what kind of file you want it to be then the named object you're wanting to convert
 
