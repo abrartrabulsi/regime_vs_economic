@@ -36,20 +36,20 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                         
                                         sidebarPanel(
                                             
-                                            selectInput("country", "Country:", levels(data$country))),
+                                            selectInput("countrygdp", "Country:", levels(data$country))),
                                                         
                                     mainPanel(
                                         
                                         plotlyOutput("GDPPlotly")
                                     )),
                                     
-                                    tabPanel("GDP and Population",
+                                    tabPanel("Per Capita GDP Through the Years",
                                              
                                              h3("GDP Per Capita for all Countries from 1960-2018"),
                                              
                                     sidebarPanel(
                                         
-                                        selectInput("country", "Country:", levels(data$country))),
+                                        selectInput("countrypercap", "Country:", levels(data$country))),
                                     
                                     mainPanel(
                                         
@@ -307,7 +307,7 @@ server <- function(input, output, server) {
     output$GDPPlotly <- renderPlotly({
         
         ggplotly(data %>%
-                     filter(country == input$country) %>%
+                     filter(country == input$countrygdp) %>%
                      
                      # to get the plot to take inputs form a variable and spit out UNIQUE outputs, you MUST
                      # filter by user input
@@ -350,7 +350,7 @@ server <- function(input, output, server) {
     output$PerCapPlotly <- renderPlotly({
         
         ggplotly(data %>%
-            filter(country == input$country) %>%
+            filter(country == input$countrypercap) %>%
             filter(year > 1960) %>%
             ggplot(aes(x = year, y = gdpercap)) + 
             geom_line() +
