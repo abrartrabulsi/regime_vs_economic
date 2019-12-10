@@ -6,6 +6,7 @@ library(shiny)
 library(shinythemes)
 library(plotly)
 library(readr)
+library(gganimate)
 
 # Think of this like a tumblr theme, really good way of making things look good right off the bat
 # without needing to code from the bottom up.
@@ -25,21 +26,37 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
            
                        tabPanel("Preliminary Graphs",
                                 
-                                # tabsetPanel is how you make tabs within your tabs. This is extremely useful!
+                               # tabsetPanel is how you make tabs within your tabs. This is extremely useful!
                                 
                                 tabsetPanel(
                                     
                                     tabPanel("GDP through the Years",
                                              
-                                             h3("Real GDP of the US, Singapore, and South Korea from 1960-2018"),
-                                             
-                                    imageOutput("map1")),
+                                             h3("Real GDP for all Countries from 1960-2018"),
+                                        
+                                        sidebarPanel(
+                                            
+                                            selectInput("country", "Country:", levels(data$country))),
+                                                        
+                                    mainPanel(
+                                        
+                                        plotlyOutput("GDPPlotly")
+                                    )),
                                     
                                     tabPanel("GDP and Population",
                                              
-                                             h3("Real GDP vs Population for the US, Singapore, and South Korea from 1960-2018"),
+                                             h3("GDP Per Capita for all Countries from 1960-2018"),
+                                             
+                                    sidebarPanel(
+                                        
+                                        selectInput("country", "Country:", levels(data$country))),
                                     
-                                    imageOutput("map2")))),
+                                    mainPanel(
+                                        
+                                        plotlyOutput("PerCapPlotly")
+                                    )))),
+                                    
+                                    #imageOutput("map2")))),
            
                        tabPanel("Asian Tigers Advanced Graphs",
                                 
@@ -68,7 +85,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                              
                                              h3("GDP Per Capita vs Polity V2 Score for the Taiwan, Singapore, and South Korea from 1960-2018"),
                                              
-                                    imageOutput("map4"),
+                                   imageOutput("map4"),
                                     
                                     br(),
                                     
@@ -290,15 +307,18 @@ server <- function(input, output, server) {
     output$GDPPlotly <- renderPlotly({
         
         ggplotly(data %>%
-                     filter(country == "United States" | country == "Korea South" | country == "Singapore" | country == "Brazil" | country == "Germany" | country == "Nigeria" | country == "Qatar") %>%
+                     filter(country == input$country) %>%
+                     
+                     # to get the plot to take inputs form a variable and spit out UNIQUE outputs, you MUST
+                     # filter by user input
+                     
                      filter(year > 1960) %>%
-                     ggplot(aes(x = year, y = rgdpna, color = country)) + 
+                     ggplot(aes(x = year, y = rgdpna)) + 
                      geom_line() +
-                     transition_reveal(year) +
                      scale_y_log10() +
                      labs(title = "", x = "Year", y = "Real GDP")
                  
-                 )
+                 ) 
     })
     
     output$useful <- renderText({
@@ -325,6 +345,19 @@ server <- function(input, output, server) {
         visually outline current data about what this relationship could look like. In the long run, I am hoping to bring this together with more
         qualitative information and analysis, because after all, it's only when sileoed neither quantitative or qualitative analysis
         is sufficient to outline most phenomenon."
+    })
+    
+    output$PerCapPlotly <- renderPlotly({
+        
+        ggplotly(data %>%
+            filter(country == input$country) %>%
+            filter(year > 1960) %>%
+            ggplot(aes(x = year, y = gdpercap)) + 
+            geom_line() +
+            scale_y_log10() +
+            labs(title = "", x = "Year", y = "GDP Per Cap")
+            
+        )
     })
 }
 # Run the application 
