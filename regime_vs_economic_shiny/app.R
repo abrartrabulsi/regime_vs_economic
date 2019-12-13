@@ -1,12 +1,17 @@
 # Loading all necessary libraries here. I will not be loading libraries like ggplot etc
 # because I am creating plots in a spearate RMD file, reading them into my prep.R file,
 # then inserting them into my shiny app server. I prefer this method over coding in my shiny app.
+# I only coded in my shiny app for the interactive plot (Plotly) because it is necessary.
+# I tried other plots out with Plotly and there were some issues with spacing of
+# axis labels, too.
 
 library(shiny)
 library(shinythemes)
 library(plotly)
 library(readr)
 library(gganimate)
+library(vembedr)
+library(htmltools)
 
 # Think of this like a tumblr theme, really good way of making things look good right off the bat
 # without needing to code from the bottom up.
@@ -20,6 +25,8 @@ ui <- fluidPage(theme = shinytheme("flatly"),
 # Also, HTML functions won't work within a navbarPage alone.
 
 br(),
+
+# use different HTML commands like br() for stylistic reasons
 
 navbarPage("Outlining the Relationship between Regime and Economic Development",
            
@@ -38,6 +45,10 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                         # and to keep track of, paraentheses 
                                         
                                         sidebarPanel(
+                                            
+                                            # you must make the beginning variable the same as the variable you "filter" by in the Plotly code
+                                            # the levels aspect will grab the corresponding data for the X and Y variables for all the values
+                                            # under the categorical variable you have just requested from the data frame
                                             
                                             selectInput("countrygdp", "Country:", levels(data$country))),
                                                         
@@ -58,8 +69,6 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                         
                                         plotlyOutput("PerCapPlotly")
                                     )))),
-                                    
-                                    #imageOutput("map2")))),
            
                        tabPanel("Asian Tigers Advanced Graphs",
                                 
@@ -98,7 +107,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     
                                     br(),
                                     
-                                        h2("Useful Information for Interpretting Plots"),
+                                        h2("Useful Information for Interpretting the Plot"),
                                     
                                             textOutput("useful"),
                                     
@@ -130,9 +139,9 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                  textOutput("textc")),
                         
                         
-                        tabPanel("Aggregate GDP per capita and Regime Fixed Effects Regression",
+                        tabPanel("Aggregate GDP Per Capita and Regime Fixed Effects Regression",
                                  
-                                 h3("Regime vs. GDP per capita, Fixing for both Year and Country"),
+                                 h3("Regime vs. GDP Per Capita, Fixing for both Year and Country"),
                                  
                                  imageOutput("map6"),
                                  
@@ -167,9 +176,16 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                 
                                 h5("To contact me, my email is abrartrabulsi@college.harvard.edu and my linked in is", a("this", href = "linkedin.com/in/abrar-trabulsi")),
                                 
+                                h3("Video Walk Through of my Project"),
+                                
+                                embed_youtube("y5OKwQoWSw&", width = 500, height = 300, allowfullscreen = TRUE),
+                                
                                 h3("Interesting Musings About the Information Shown"),
                                 
                                 textOutput("interesting"),
+                                
+                                # note that spaces between paragraphs can't be done in textOutputs (or at least I haven't figured it out myself)
+                                # so a good way to get around this is to use a smaller HTML header level. They put space automatically between them
                                 
                                 h3("References"),
                                 h5("Wade, R. (1990). Governing the Market. Princeton University Press. Retrieved December 12, 
@@ -261,7 +277,8 @@ server <- function(input, output, server) {
         as a point at which it would be incredibly difficult for autocracies to democratize. This suggests that for Singapore, the potential
         destabilization that comes with any regime change was too high of a cost to risk their already, relatively high GDP per capita, and the
         explocive economic growth the country had been and would continue to experience. South Korea and Taiwan on the other hand,
-        initially had much lower GDP per capitas, and were well on the way to democratization before surpassing the threshold."
+        initially had much lower GDP per capitas, and were well on the way to democratization before surpassing the threshold, so there was less
+        to potentially lose through regime change."
     })
     
     output$textc <- renderText({
@@ -311,12 +328,14 @@ server <- function(input, output, server) {
     
     output$useful <- renderText({
         
-        "I fully intended to make a key explaining this, but R wouldn't make a key of the lines on this
-        graph with the typical commands, so here we are. The two black lines are the GDP per capita range in which
-        an autocratic state is deemed the most vulnerable to the forces of democratization. The blue line is the GDP per capita at which
-        once an autocratic state has surpassed it, is deemed safe from the forces of democratization. The red line shows the divide between 
-        autocracies and democracies in the Polity V range."
+        "The two black lines are the area at which autocracies are most vulnerable to democratization ($1000 - $4000 GDP Per Capita).
+        The blue line is the parameter at which autocracies are deemed safe from the forces of democratization ($6000 GDP Per Capita).
+        And Lastly, the line at 0 Polity V2 is the differentiating line between an autocracy and dmeocracy. The GDP Per Capita parameters are 
+        per those theorized, and extensively discussed by Przeworski and Limongi."
     })
+    
+    # I wrote this in my RMD too, but the reason why i don't have a key for these is because I couldn't make one
+    # show up despite having the right code for one which you'll be able to see once you check my RMD code for this plot.
     
     output$interesting <- renderText({
         
@@ -340,7 +359,7 @@ server <- function(input, output, server) {
         ggplotly(data %>%
             filter(country == input$countrypercap) %>%
             
-            # when you're making new plotly's, the input variable name in your filter
+            # when you're making new plotlys', the input variable name in your filter
             # as well as the ui must be different from those of other plotlys'
                 
             filter(year > 1960) %>%

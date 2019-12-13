@@ -1,5 +1,5 @@
 ---
-title: "Regime type and Economic Development"
+title: "Regime Type and Economic Development"
 author: "Abrar Trabulsi"
 date: "11/28/2019"
 output: html_document
@@ -68,7 +68,7 @@ data %>%
   scale_y_log10() +
   labs(title = "", x = "Year", y = "GDP Per Cap")
 
-# I am doing this code in the RMD FIRST because it's easier to continuously work with, and change as needed before copying and pasting into the app.R file for plotly use.
+# I am doing this code in the RMD FIRST because it's easier to continuously work with, and change as needed before copying and pasting into the app.R file for plotly use. I made these into images at first but then deleted them because I decided to make these my interactive plot instead.
 
 ```
 ```{r My Models}
@@ -94,7 +94,10 @@ mymap4 <- data %>%
   ggplot(aes(x = polity2, y = gdpercap, color = country)) + 
   geom_point() +
   annotate("rect", xmin = -10, xmax = 10, ymin = 1000, ymax = 4000, alpha = .1) +
-  geom_hline(yintercept = 4000, linetype = "dotted", show.legend = TRUE) +
+  geom_hline(yintercept = 4000, linetype = "dotted", show.legend = TRUE)+
+  
+  # as shown here with show.legend = TRUE I tried to make a key for the lines on this plot but for some reason it did not show up no matter what I tried. So, I settled for explaining it in words below this plot in my Shiny because while that is not ideal by any means, it is better than not explaining the lines at all.
+  
   geom_hline(yintercept = 1000, linetype = "dotted", show.legend = TRUE) +
   geom_hline(yintercept = 6000, color = "blue", show.legend = TRUE) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red", show.legend = TRUE) +
@@ -116,7 +119,7 @@ write_rds(mymap6, "regime_vs_economic_shiny/mymap6.rds")
 ```
 ```{r Function to turn a regression output into a ggplot}
 
-# this is a function I found online which converts a regression output to a ggplot, it's extremely useful especially considering the fact that I don't know how to incorporate fixed effects into ggplot
+# this is a function which converts a regression output to a ggplot, it's extremely useful especially considering the fact that I don't know how to incorporate fixed effects into ggplot, but still want to include fixed effects plots in my final project since I think they could be very interesting and useful for the analysis I'm doing.
 
 ggplotRegression <- function (fit) {
 
@@ -142,7 +145,7 @@ mymap5 <- ggplotRegression(m1) + labs(x = "Polity V2 Score", y = "GDP")
 ```
 ```{r FE model for GDP Per Capita}
 
-# I am using GDP percapita due to the more specific analysis you can conduct with it
+# I am using GDP percapita due to the more specific analysis you can conduct with it, and for the sake of consistency across my project as a whole.
 
 m2 <- lm(gdpercap ~ polity2 + as.factor(country) + as.factor(year), data = data)
          summary(m2)
