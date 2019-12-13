@@ -67,7 +67,7 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                     
                                     tabPanel("Regime and GDP Simple Regression",
                                              
-                                             h3("Regime vs. GDP for the US, South Korea, and Singapore from 1960-2018"),
+                                             h3("Regime vs. GDP for the Taiwan, South Korea, and Singapore from 1960-2018"),
                                              
                                     imageOutput("map3"),
                                     
@@ -169,7 +169,13 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                 
                                 h3("Interesting Musings About the Information Shown"),
                                 
-                                textOutput("interesting")
+                                textOutput("interesting"),
+                                
+                                h3("References"),
+                                h5("Wade, R. (1990). Governing the Market. Princeton University Press. Retrieved December 12, 
+                                2019."),
+                                h5("A., & Limongi, F. (1997). Modernization: Theories and Facts. World Politics,49(02), 155-183. 
+                                doi:10.1353/wp.1997.00043.0019")
                                 
                                 )
 ))
