@@ -1,9 +1,8 @@
-# loading libraries to prep for my shinyapp
+# loading libraries to prep for my shinyapp, very important
 
 library(shiny)
 library(tidyverse)
 library(fs)
-library(gganimate)
 library(readr)
 library(caTools)
 library(ggplot2)

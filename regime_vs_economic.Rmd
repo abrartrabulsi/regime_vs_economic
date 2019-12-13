@@ -158,5 +158,3 @@ mymap6 <- ggplotRegression(m2) + labs(x = "Polity V2 Score", y = "GDP Per Capita
 
 write_rds(data, "regime_vs_economic_shiny/data.rds")
 ```
-
-

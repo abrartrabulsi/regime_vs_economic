@@ -174,11 +174,13 @@ navbarPage("Outlining the Relationship between Regime and Economic Development",
                                 
                                     textOutput("me"), 
                                 
-                                h5("To contact me, my email is abrartrabulsi@college.harvard.edu and my linked in is", a("this", href = "linkedin.com/in/abrar-trabulsi")),
+                                h5("To contact me, my email is abrartrabulsi@college.harvard.edu and my linked in is", a("this", href = "https://linkedin.com/in/abrar-trabulsi")),
                                 
                                 h3("Video Walk Through of my Project"),
                                 
-                                embed_youtube("y5OKwQoWSw&", width = 500, height = 300, allowfullscreen = TRUE),
+                                # I tried embed_youtube but for some reason that wouldn't work, this did though
+                                
+                                embed_url("https://www.youtube.com/watch?v=-y5OKwQoWSw&t=5s"),
                                 
                                 h3("Interesting Musings About the Information Shown"),
                                 
@@ -342,7 +344,7 @@ server <- function(input, output, server) {
         "I'm primarily going to talk about the inspiration for this project, which is maininly the story of the East Asian Tigers.
         These are countries which had just come our of colonialization and brutal war, and were thwarted onto the world stage as nation states during a time
         when the Cold War was just beginning. They were able to transform themselves from some of the poorest countries in the world,
-        to same of the wealthiest in the span od 3 decades. This was absoltely unprescedented, and went against everything political scientists and
+        to same of the wealthiest in the span of 3 decades. This was absoltely unprescedented, and went against everything political scientists and
         economists had thought was true for so long. When I learned about these coutries in a GOV 20, a comparative government class I took my freshman year,
         I was fascinated. What it seemed like to me was that these countries were able to develop so rapidly in part because they were autocracies,
         because their regimes could implement aggressive state led economic policy like choosing which industries would be fostered and catered to
