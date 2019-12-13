@@ -76,7 +76,7 @@ data %>%
 # model displaying the relationship between Real GDP and Polity V score by year with population taken into account
 
 mymap3 <- data %>%
-  filter(country == "United States" | country == "Korea South" | country == "Singapore") %>%
+  filter(country == "Taiwan" | country == "Korea South" | country == "Singapore") %>%
   filter(year > 1960) %>%
   ggplot(aes(x = polity2, y = rgdpna, color = country)) + 
   geom_point() +

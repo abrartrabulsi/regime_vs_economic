@@ -250,8 +250,8 @@ server <- function(input, output, server) {
     output$textb <- renderText({
         
         "This graph shows that for both South Korea and Taiwan, as GDP per capita increased, they became more democratic,
-        and democratized a little after the per capita range theorized by Acemoglu and Robinson as the most dangerous for autocracies.
-        Singapore had a per capita much higher than that of South Korea and Taiwan in 1960, a little under the $6,000 theorized by Acemoglu and Robinson
+        and democratized a little after the per capita range theorized by Przeworski and Limongi as the most dangerous for autocracies.
+        Singapore had a per capita much higher than that of South Korea and Taiwan in 1960, a little under the $6,000 theorized by Przeworski and Limongi
         as a point at which it would be incredibly difficult for autocracies to democratize. This suggests that for Singapore, the potential
         destabilization that comes with any regime change was too high of a cost to risk their already, relatively high GDP per capita, and the
         explocive economic growth the country had been and would continue to experience. South Korea and Taiwan on the other hand,
