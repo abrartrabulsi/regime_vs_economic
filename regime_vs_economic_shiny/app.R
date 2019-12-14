@@ -263,9 +263,9 @@ server <- function(input, output, server) {
         "South Korea experienced consistent and explosive economic growth as a stringent autocracy for several decades before beginning the democratization process in 1988. 
         South Korea continued experiencing substantive economic growth except for in 1997, during the Asian financial crisis, which happened to occur
         during Korea's first civilian elected government in 3 decades. Whether this factors into the occurence of the financial crisis is unclear, but it is possible since there is 
-        documented evidence of governmental events affecting economic performance. Singapore, which has consistently been a one-party autocracy for several decades,
-        also benefitted from explosive economic growth between 1960 and 2018. The United States has experienced modest economic growth, and relatively
-        consistent democratic governance. For South Korea and Singapore, it seems as though their vast economic development did have
+        documented evidence of governmental events affecting economic performance. Taiwan's economic performance relative to regime type is also consistent with that of South Korea, except for the 
+        fact that Taiwan did not seem as affected by the finalcial crisis as South Korea was. Singapore, which has consistently been a one-party autocracy for several decades,
+        also benefitted from explosive economic growth between 1960 and 2018. For South Korea, Singapore, and Taiwan, it seems as though their vast economic development did have
         something to do with the fact that they are/were autocracies, especially Singapore, which has maintained the same Polity score for
         decades. Literature will support this, with experts citing certain features unique to autocracies such as state-led economic initiatives attributing to 
         their growth. See the 'About' page for more."
