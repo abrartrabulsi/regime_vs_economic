@@ -19,10 +19,10 @@ library(readr)
 ```
 ```{r Setting up my data}
 
-# reading in my data where "mydata" is economic data from the Penn World Tables and my2data is data measuring democratic nature of countries from Polity V
+# Reading in my data where "mydata" is economic data from the Penn World Tables and my2data is data measuring democratic nature of countries from Polity V. Made a rawdata file in my project so these can run rometely if needed.
 
-mydata <- read_dta("/Users/abrartrabulsi/Downloads/pwt91.dta")
-my2data <- read_xls("/Users/abrartrabulsi/Downloads/p4v2018.xls")
+mydata <- read_dta("rawdata/pwt91.dta")
+my2data <- read_xls("rawdata/p4v2018.xls")
 
 mydata[mydata == -88] <- NA
 
