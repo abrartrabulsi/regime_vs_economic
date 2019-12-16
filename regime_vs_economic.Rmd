@@ -49,7 +49,7 @@ data <- newdata %>%
 ```
 ```{r My Graphs}
 
-# first I will map the Real GDP growth of the US, Singapore, and Korea from 1960-2018
+# first I will map the Real GDP growth of all countries from 1960-2018
   
 data %>%
   filter(year > 1960) %>%
@@ -58,7 +58,7 @@ data %>%
   scale_y_log10() +
   labs(title = "", x = "Year", y = "Real GDP")
 
-# next I will do the same but with regards to population
+# next I will do the same but for GDP per capita
 
 data %>%
   filter(year > 1960) %>%
@@ -73,7 +73,7 @@ data %>%
 ```
 ```{r My Models}
 
-# model displaying the relationship between Real GDP and Polity V score by year with population taken into account
+# model displaying the relationship between Real GDP and Polity V score by year 1960-2018
 
 mymap3 <- data %>%
   filter(country == "Taiwan" | country == "Korea South" | country == "Singapore") %>%
@@ -86,7 +86,7 @@ mymap3 <- data %>%
   scale_y_log10() +
   labs(title = "", x = "Polity V2 Score", y = "Real GDP")
 
-# model displaying the relationship between GDP per capita and PolityV2 score by year with population taken into account
+# model displaying the relationship between GDP per capita and PolityV2 score by year 1960-2018
 
 mymap4 <- data %>%
   filter(country == "Korea South" | country == "Singapore" | country == "Taiwan") %>%
