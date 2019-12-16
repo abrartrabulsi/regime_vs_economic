@@ -68,7 +68,7 @@ data %>%
   scale_y_log10() +
   labs(title = "", x = "Year", y = "GDP Per Cap")
 
-# I am doing this code in the RMD FIRST because it's easier to continuously work with, and change as needed before copying and pasting into the app.R file for plotly use. I made these into images at first but then deleted them because I decided to make these my interactive plot instead.
+# I am doing this code in the RMD FIRST because it's easier to continuously work with, and change as needed before copying and pasting into the app.R file for plotly use. I made these into images at first but then deleted them because I decided to make these my interactive plot instead. Note that the code here and in my app.R might be slightly different due to specific code necessary when using plotly, but unnecessary in the RMD. 
 
 ```
 ```{r My Models}
