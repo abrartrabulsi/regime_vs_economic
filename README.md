@@ -8,4 +8,5 @@ Here you'll find all files associated with this project, primarily:
     b. app.R which is my shiny, and contains all the coding for what you see when opening my Shiny App
   
 All files have code comments in them which serve as explaining some choices I made and why, explanations for certain code, and helpful reminders when making this project
+
 Hope you enjoy!
